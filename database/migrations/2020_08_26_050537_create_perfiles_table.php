@@ -15,12 +15,12 @@ class CreatePerfilesTable extends Migration
     {
         Schema::create('perfiles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('Nombre');
-            $table->string('Apellido');
-            $table->string('Localidad');
-            $table->date('FechaDeNacimiento');
-            $table->enum('Genero', ['Hombre', 'Mujer', 'Otros']);
-            $table->string('ImagenDePerfil',220);
+            $table->string('nombre');
+            $table->string('apellido');
+            $table->string('localidad');
+            $table->date('fecha_nacimiento');
+            $table->enum('genero', ['Hombre', 'Mujer', 'Otros']);
+            $table->string('imagen_perfil',220);
             $table->timestamps();
         });
     }
