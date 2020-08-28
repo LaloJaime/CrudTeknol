@@ -81,18 +81,17 @@ class PerfilController extends Controller
     public function update(PerfilRequest $request, $id)
     {
         //
-        $datosPerfil=request()->all();
-        // if ($request->hasFile('imagen_perfil')) {
-        //     $datosPerfil['imagen_perfil'] = $request->file('imagen_perfil')->store('uploads','public');
-        // }
-        // $perfil2 = Perfiles::find($id);
-        // if (!$perfil2) {
-        //     return response()->json(['errors'=>array(['code'=>400,'message'=>'No se encuentra el Id.'])],400);
-        // }
-        // $datosPerfil=request()->all();
-        // Perfiles::where('id','=',$id)->update($datosPerfil);
-        // $perfil = Perfiles::findOrFail($id);
-        return response()->json($datosPerfil,200);
+        $perfil = Perfiles::find($id);
+        if (!$perfil) {
+            return response()->json(['errors'=>array(['code'=>400,'message'=>'No se encuentra el Id.'])],400);
+        }
+        $datosPerfil=request()->except('_method');
+        if ($request->hasFile('imagen_perfil')) {
+            $datosPerfil['imagen_perfil'] = $request->file('imagen_perfil')->store('uploads','public');
+        }
+        Perfiles::where('id','=',$id)->update($datosPerfil);
+        $perfil = Perfiles::findOrFail($id);
+        return response()->json($perfil,200);
     }
 
     /**
